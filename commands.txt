@@ -1,0 +1,9 @@
+python manage.py makemigrations --dry-run --verbosity 3
+python manage.py migrate
+python manage.py runserver
+python manage.py createsuperuser
+pip install coverage
+pip install djangorestframework
+coverage run --omit='*/venv/*' manage.py test -------------- Run Test
+coverage html --------------- Compile Run Test on Coverage HTML
+pip install django-cors-headers
