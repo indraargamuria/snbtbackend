@@ -1,16 +1,9 @@
 from rest_framework import serializers
 from rest_framework.fields import empty
 from rest_framework.permissions import AllowAny
-from exam.models import MasterAnswer, MasterQuestion, MasterSubTest, MasterSection, TransactUserPackage, MasterPackage, MasterTimeline, MasterYear
+from exam.models import TransactUserAnswer, MasterAnswer, MasterQuestion, MasterSubTest, MasterSection, TransactUserPackage, MasterPackage, MasterTimeline, MasterYear
 
-class MultiPackageSerializer(serializers.ModelSerializer):
-    def __init__(self, *args, **kwargs):
-        many = kwargs.pop('many', True)
-        super(MultiPackageSerializer, self).__init__(many=many, *args, **kwargs)
 
-    class Meta:
-        model = MasterPackage
-        fields = '__all__' 
 
 
 class MasterAnswerSerializer(serializers.ModelSerializer):
@@ -53,10 +46,19 @@ class MasterTimelineSerializer(serializers.ModelSerializer):
         fields = '__all__' 
 
 class TransactUserPackageSerializer(serializers.ModelSerializer):
-    package_related = MasterPackageSerializer(many=True, read_only=True)
+    # package_related = MasterPackageSerializer(many=True, read_only=True)
     class Meta:
         model = TransactUserPackage 
         fields = '__all__' 
+
+
+class TransactUserAnswerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TransactUserAnswer 
+        fields = '__all__' 
+
+
+
 class MasterYearSerializer(serializers.ModelSerializer):
     # timeline_related = MasterTimelineSerializer(many=True, read_only=True)
     # def __init__(self, *args, **kwargs):

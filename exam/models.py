@@ -131,9 +131,22 @@ class TransactUserPackage(models.Model):
     status = models.IntegerField(choices=statusoption)
     created = models.DateField(auto_now_add=True)
     updated = models.DateField(auto_now=True)
+    sectiondone = models.IntegerField(default=0)
     
     def __str__(self) -> str:
         return str(self.package)
 
+class TransactUserAnswer(models.Model):
+
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="user_transact_related")
+    userpackage = models.ForeignKey(TransactUserPackage, on_delete=models.PROTECT, related_name="userpackage_related")
+    package = models.ForeignKey(MasterPackage, on_delete=models.PROTECT, related_name="package_transact_related")
+    section = models.ForeignKey(MasterSection, on_delete=models.PROTECT, related_name="section_transact_related")
+    subtest = models.ForeignKey(MasterSubTest, on_delete=models.PROTECT, related_name="subtest_transact_related")
+    question = models.ForeignKey(MasterQuestion, on_delete=models.PROTECT, related_name="question_transact_related")
+    answer = models.ForeignKey(MasterAnswer, on_delete=models.PROTECT, related_name="answer_transact_related")
+
     
+    def __str__(self) -> str:
+        return str(self.userpackage)
 

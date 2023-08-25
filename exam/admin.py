@@ -7,7 +7,9 @@ class MasterPackageAdmin(ImportExportModelAdmin,admin.ModelAdmin):
     list_display = ('id','user','name','timeline','status')
 
 admin.site.register(models.MasterTimeline)
-admin.site.register(models.MasterYear)
+@admin.register(models.MasterYear)
+class MasterYearAdmin(ImportExportModelAdmin,admin.ModelAdmin):
+    list_display = ('id','year')
 
 @admin.register(models.MasterSection)
 class MasterSectionAdmin(ImportExportModelAdmin,admin.ModelAdmin):
@@ -25,4 +27,11 @@ class MasterQuestionAdmin(ImportExportModelAdmin,admin.ModelAdmin):
 class MasterAnswerAdmin(ImportExportModelAdmin,admin.ModelAdmin):
     list_display = ('id','name','order','isright','question')
 
-admin.site.register(models.TransactUserPackage)
+@admin.register(models.TransactUserPackage)
+class TransactUserPackageAdmin(ImportExportModelAdmin,admin.ModelAdmin):
+    list_display = ('id','user','package','status','sectiondone')
+
+
+@admin.register(models.TransactUserAnswer)
+class TransactUserAnswerAdmin(ImportExportModelAdmin,admin.ModelAdmin):
+    list_display = ('id','user','userpackage','package','section','subtest','question','answer')
