@@ -145,6 +145,7 @@ class TransactUserAnswer(models.Model):
     subtest = models.ForeignKey(MasterSubTest, on_delete=models.PROTECT, related_name="subtest_transact_related")
     question = models.ForeignKey(MasterQuestion, on_delete=models.PROTECT, related_name="question_transact_related")
     answer = models.ForeignKey(MasterAnswer, on_delete=models.PROTECT, related_name="answer_transact_related")
+    isselected = models.IntegerField()
 
     
     def __str__(self) -> str:

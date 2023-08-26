@@ -31,16 +31,16 @@ class MasterTimelineList(generics.ListCreateAPIView):
     serializer_class = MasterTimelineSerializer
     pass
 
-class MasterPackageList(generics.ListCreateAPIView):
-    # permission_classees = [IsAuthenticated]
-    queryset = MasterPackage.masterpackageobjects.all()
-    serializer_class = MasterPackageSerializer
-    pass
+# class MasterPackageList(generics.ListCreateAPIView):
+#     # permission_classees = [IsAuthenticated]
+#     queryset = MasterPackage.masterpackageobjects.all()
+#     serializer_class = MasterPackageSerializer
+#     pass
 
-class MasterPackageDetail(generics.RetrieveUpdateDestroyAPIView):
-    queryset = MasterPackage.objects.all()
-    serializer_class = MasterPackageSerializer
-    pass
+# class MasterPackageDetail(generics.RetrieveUpdateDestroyAPIView):
+#     queryset = MasterPackage.objects.all()
+#     serializer_class = MasterPackageSerializer
+#     pass
 
 
 # class TransactUserPackageList(generics.ListCreateAPIView):
@@ -55,6 +55,27 @@ class MasterPackageDetail(generics.RetrieveUpdateDestroyAPIView):
 #     model = MasterPackage
 #     serializer_class = MultiPackageSerializer
 
+
+class MasterPackageViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows multiple members to be created.
+    """
+    queryset = MasterPackage.objects.none()
+    serializer_class = MasterPackageSerializer
+
+    def get_queryset(self):
+         queryset = MasterPackage.objects.all()
+         return queryset
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data, many=isinstance(request.data, list))
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        results = MasterPackage.objects.all()
+        output_serializer = MasterPackageSerializer(results, many=True)
+        data = output_serializer.data[:]
+        return Response(data)
+    
 
 
 class TransactUserPackageViewSet(viewsets.ModelViewSet):

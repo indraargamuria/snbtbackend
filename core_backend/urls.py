@@ -24,12 +24,13 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
     TokenVerifyView
 )
-from exam_api.views import TransactUserAnswerViewSet, TransactUserPackageViewSet
+from exam_api.views import TransactUserAnswerViewSet, TransactUserPackageViewSet,MasterPackageViewSet
 from useraccount.views import MasterUserAccountViewSet
 
 router = routers.DefaultRouter()
 router.register('useranswer', TransactUserAnswerViewSet, basename='useranswer')
 router.register('userpackage', TransactUserPackageViewSet, basename='userpackage')
+router.register('package', MasterPackageViewSet, basename='package')
 router.register('useraccount', MasterUserAccountViewSet, basename='useraccount')
 
 schema_view = get_schema_view(
