@@ -60,18 +60,18 @@ class MasterPackageViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows multiple members to be created.
     """
-    queryset = MasterPackage.objects.none()
+    queryset = MasterPackage.objects.none().order_by('-id')
     serializer_class = MasterPackageSerializer
 
     def get_queryset(self):
-         queryset = MasterPackage.objects.all()
+         queryset = MasterPackage.objects.all().order_by('-id')
          return queryset
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data, many=isinstance(request.data, list))
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
-        results = MasterPackage.objects.all()
+        results = MasterPackage.objects.all().order_by('-id')
         output_serializer = MasterPackageSerializer(results, many=True)
         data = output_serializer.data[:]
         return Response(data)

@@ -18,12 +18,18 @@ class MasterQuestionSerializer(serializers.ModelSerializer):
         model = MasterQuestion
         fields = '__all__' 
         
+        
 
 class MasterSubTestSerializer(serializers.ModelSerializer):
-    question_related = MasterQuestionSerializer(many=True, read_only=True)
+    
+    question_related = serializers.SerializerMethodField()
+    # question_related = MasterQuestionSerializer(many=True, read_only=True)
     class Meta:
         model = MasterSubTest
         fields = '__all__' 
+    def get_question_related(self, instance):
+        songs = instance.question_related.all().order_by('id')
+        return MasterQuestionSerializer(songs, many=True).data
         
 class MasterSectionSerializer(serializers.ModelSerializer):
     subtest_related = MasterSubTestSerializer(many=True, read_only=True)
