@@ -26,6 +26,7 @@ from rest_framework_simplejwt.views import (
 )
 from exam_api.views import TransactUserAnswerViewSet, TransactUserPackageViewSet,MasterPackageViewSet
 from useraccount.views import MasterUserAccountViewSet, MasterUserProfileViewSet
+from ref.views import UniversityViewSet, StudyProgramViewSet
 
 router = routers.DefaultRouter()
 router.register('useranswer', TransactUserAnswerViewSet, basename='useranswer')
@@ -33,6 +34,8 @@ router.register('userpackage', TransactUserPackageViewSet, basename='userpackage
 router.register('package', MasterPackageViewSet, basename='package')
 router.register('useraccount', MasterUserAccountViewSet, basename='useraccount')
 router.register('userprofile', MasterUserProfileViewSet, basename='userprofile')
+router.register('university', UniversityViewSet, basename='university')
+router.register('studyprogram', StudyProgramViewSet, basename='studyprogram')
 
 schema_view = get_schema_view(
    openapi.Info(
