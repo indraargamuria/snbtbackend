@@ -4,8 +4,8 @@ from django.shortcuts import render
 from rest_framework import status, viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializers import RegisterUserSerializer, MasterUserAccountSerializer
-from .models import UserAccount
+from .serializers import RegisterUserSerializer, MasterUserAccountSerializer, MasterUserProfileRawSerializer
+from .models import UserAccount,UserProfile
 from rest_framework.permissions import AllowAny
 
 class RegisterUserAccount(APIView):
@@ -40,4 +40,28 @@ class MasterUserAccountViewSet(viewsets.ModelViewSet):
         data = output_serializer.data[:]
         return Response(data)
         
-    
+
+
+class MasterUserProfileViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows multiple members to be created.
+    """
+    queryset = UserAccount.objects.none()
+    serializer_class = MasterUserProfileRawSerializer
+
+    def get_queryset(self):
+         queryset = UserProfile.objects.all()
+         return queryset
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data, many=isinstance(request.data, list))
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        results = UserProfile.objects.all()
+        output_serializer = MasterUserProfileRawSerializer(results, many=True)
+        data = output_serializer.data[:]
+        return Response(data)
+        
+
+
+        
