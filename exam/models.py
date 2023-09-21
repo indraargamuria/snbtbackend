@@ -151,3 +151,21 @@ class TransactUserAnswer(models.Model):
     def __str__(self) -> str:
         return str(self.userpackage)
 
+class TemplateLoaderPackage(models.Model):
+
+    ipackage = models.CharField(max_length=100)
+    isection = models.CharField(max_length=100)
+    isubtest = models.CharField(max_length=100)
+    iquestionnumber = models.CharField(max_length=100)
+    iquestiontype = models.CharField(max_length=100)
+    iquestiondescription = models.TextField()
+    ianswer1 = models.TextField()
+    ianswer2 = models.TextField()
+    ianswer3 = models.TextField()
+    ianswer4 = models.TextField()
+    ianswer5 = models.TextField()
+    ianswer6 = models.TextField()
+    ianswer7 = models.TextField()
+    ianswer8 = models.TextField()
+    ianswer9 = models.TextField()
+    ianswer10 = models.TextField()

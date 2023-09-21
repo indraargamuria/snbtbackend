@@ -35,3 +35,10 @@ class TransactUserPackageAdmin(ImportExportModelAdmin,admin.ModelAdmin):
 @admin.register(models.TransactUserAnswer)
 class TransactUserAnswerAdmin(ImportExportModelAdmin,admin.ModelAdmin):
     list_display = ('id','user','userpackage','package','section','subtest','question','answer')
+
+
+@admin.register(models.TemplateLoaderPackage)
+class TemplateLoaderPackageAdmin(ImportExportModelAdmin,admin.ModelAdmin):
+    list_display = ('id','ipackage','isection','isubtest','iquestionnumber','iquestiontype','iquestiondescription'
+                    ,'ianswer1','ianswer2','ianswer3','ianswer4','ianswer5'
+                    ,'ianswer6','ianswer7','ianswer8','ianswer9','ianswer10')
