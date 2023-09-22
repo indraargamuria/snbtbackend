@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import UserAccount, UserProfile
+from .models import UserAccount, UserProfile, MasterStudentNumber
 from ref.models import University, StudyProgram
 
 class RegisterUserSerializer(serializers.ModelSerializer):
@@ -60,3 +60,12 @@ class MasterUserAccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserAccount 
         fields = ('id','fullname','created','user_profile_related')
+
+
+class MasterStudentNumberSerializer(serializers.ModelSerializer):
+    
+
+
+    class Meta:
+        model = MasterStudentNumber 
+        fields = '__all__' 

@@ -82,3 +82,11 @@ class UserProfile(models.Model):
     def __str__(self) -> str:
         return str(self.user)
 
+class MasterStudentNumber(models.Model):
+    studentnumber = models.CharField(max_length=200)
+    studentname = models.CharField(max_length=200)
+    studentbranch = models.CharField(max_length=200)
+    studenttimeline = models.IntegerField()
+
+    def __str__(self) -> str:
+        return str(self.studentnumber)

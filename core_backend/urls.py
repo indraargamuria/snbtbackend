@@ -25,7 +25,7 @@ from rest_framework_simplejwt.views import (
     TokenVerifyView
 )
 from exam_api.views import TransactUserAnswerViewSet, TransactUserPackageViewSet,MasterPackageViewSet
-from useraccount.views import MasterUserAccountViewSet, MasterUserProfileViewSet
+from useraccount.views import MasterUserAccountViewSet, MasterUserProfileViewSet, MasterStudentNumberViewSet
 from ref.views import UniversityViewSet, StudyProgramViewSet
 
 router = routers.DefaultRouter()
@@ -36,6 +36,7 @@ router.register('useraccount', MasterUserAccountViewSet, basename='useraccount')
 router.register('userprofile', MasterUserProfileViewSet, basename='userprofile')
 router.register('university', UniversityViewSet, basename='university')
 router.register('studyprogram', StudyProgramViewSet, basename='studyprogram')
+router.register('studentnumber', MasterStudentNumberViewSet, basename='studentnumber')
 
 schema_view = get_schema_view(
    openapi.Info(

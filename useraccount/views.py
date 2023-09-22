@@ -4,8 +4,8 @@ from django.shortcuts import render
 from rest_framework import status, viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializers import RegisterUserSerializer, MasterUserAccountSerializer, MasterUserProfileRawSerializer
-from .models import UserAccount,UserProfile
+from .serializers import RegisterUserSerializer, MasterUserAccountSerializer, MasterUserProfileRawSerializer, MasterStudentNumberSerializer
+from .models import UserAccount,UserProfile, MasterStudentNumber
 from rest_framework.permissions import AllowAny
 
 class RegisterUserAccount(APIView):
@@ -59,6 +59,27 @@ class MasterUserProfileViewSet(viewsets.ModelViewSet):
         self.perform_create(serializer)
         results = UserProfile.objects.all()
         output_serializer = MasterUserProfileRawSerializer(results, many=True)
+        data = output_serializer.data[:]
+        return Response(data)
+        
+
+class MasterStudentNumberViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows multiple members to be created.
+    """
+    queryset = MasterStudentNumber.objects.none()
+    serializer_class = MasterStudentNumberSerializer
+
+    def get_queryset(self):
+         queryset = MasterStudentNumber.objects.all()
+         return queryset
+
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data, many=isinstance(request.data, list))
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        results = MasterStudentNumber.objects.all()
+        output_serializer = MasterStudentNumberSerializer(results, many=True)
         data = output_serializer.data[:]
         return Response(data)
         
