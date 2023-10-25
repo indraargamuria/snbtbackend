@@ -162,6 +162,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://uss-snbt.com",
     "http://uss-snbt.com:80",
     "http://uss-snbt.com:8172"
+    "http://uss-snbt.com:8080"
 ]
 
 
