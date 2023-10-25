@@ -2,6 +2,7 @@
 
 # Create your views here.
 
+from django.http import HttpResponse
 from rest_framework import generics, viewsets, status
 from rest_framework.response import Response
 from rest_framework.request import Request
@@ -31,16 +32,16 @@ class MasterTimelineList(generics.ListCreateAPIView):
     serializer_class = MasterTimelineSerializer
     pass
 
-# class MasterPackageList(generics.ListCreateAPIView):
-#     # permission_classees = [IsAuthenticated]
-#     queryset = MasterPackage.masterpackageobjects.all()
-#     serializer_class = MasterPackageSerializer
-#     pass
+class MasterPackageList(generics.ListCreateAPIView):
+    # permission_classees = [IsAuthenticated]
+    queryset = MasterPackage.masterpackageobjects.all()
+    serializer_class = MasterPackageSerializer
+    pass
 
-# class MasterPackageDetail(generics.RetrieveUpdateDestroyAPIView):
-#     queryset = MasterPackage.objects.all()
-#     serializer_class = MasterPackageSerializer
-#     pass
+class MasterPackageDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = MasterPackage.objects.all()
+    serializer_class = MasterPackageSerializer
+    pass
 
 
 # class TransactUserPackageList(generics.ListCreateAPIView):
@@ -56,25 +57,25 @@ class MasterTimelineList(generics.ListCreateAPIView):
 #     serializer_class = MultiPackageSerializer
 
 
-class MasterPackageViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows multiple members to be created.
-    """
-    queryset = MasterPackage.objects.none().order_by('-id')
-    serializer_class = MasterPackageSerializer
+# class MasterPackageViewSet(viewsets.ModelViewSet):
+#     """
+#     API endpoint that allows multiple members to be created.
+#     """
+#     queryset = MasterPackage.objects.none().order_by('-id')
+#     serializer_class = MasterPackageSerializer
 
-    def get_queryset(self):
-         queryset = MasterPackage.objects.all().order_by('-id')
-         return queryset
+#     def get_queryset(self):
+#          queryset = MasterPackage.objects.all().order_by('-id')
+#          return queryset
 
-    def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data, many=isinstance(request.data, list))
-        serializer.is_valid(raise_exception=True)
-        self.perform_create(serializer)
-        results = MasterPackage.objects.all().order_by('-id')
-        output_serializer = MasterPackageSerializer(results, many=True)
-        data = output_serializer.data[:]
-        return Response(data)
+#     def create(self, request, *args, **kwargs):
+#         serializer = self.get_serializer(data=request.data, many=isinstance(request.data, list))
+#         serializer.is_valid(raise_exception=True)
+#         self.perform_create(serializer)
+#         results = MasterPackage.objects.all().order_by('-id')
+#         output_serializer = MasterPackageSerializer(results, many=True)
+#         data = output_serializer.data[:]
+#         return Response(data)
     
 
 
@@ -106,18 +107,18 @@ class TransactUserAnswerViewSet(viewsets.ModelViewSet):
     queryset = TransactUserAnswer.objects.none()
     serializer_class = TransactUserAnswerSerializer
 
-    def get_queryset(self):
-         queryset = TransactUserAnswer.objects.all()
-         return queryset
+    # def get_queryset(self):
+    #      queryset = TransactUserAnswer.objects.all()
+    #      return queryset
 
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data, many=isinstance(request.data, list))
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
-        results = TransactUserAnswer.objects.all()
-        output_serializer = TransactUserAnswerSerializer(results, many=True)
-        data = output_serializer.data[:]
-        return Response(data)
+        # results = TransactUserAnswer.objects.all()
+        # output_serializer = TransactUserAnswerSerializer(results, many=True)
+        # data = output_serializer.data[:]
+        return HttpResponse(status = 200)
         
     
 # class YearViewSet(viewsets.ModelViewSet):
